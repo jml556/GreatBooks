@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 app.get('/book/:book/prop/:prop', (req, res) => {
   const propLocation = req.params
   const prop = euclid['book' + propLocation.book]['prop' + propLocation.prop]
+  Object.assign(prop, {'book': propLocation.book, 'proposition': propLocation.prop})
 
   res.json(prop)
 })
