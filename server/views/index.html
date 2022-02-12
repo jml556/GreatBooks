@@ -23,7 +23,7 @@
       justify-content: center;
       align-items: center;
     }
-    
+
     .input {
       display: block;
       margin-bottom: 5px;
@@ -48,7 +48,6 @@
       padding: 20px;
       margin-bottom: 30px;
     }
-
   </style>
 
   <body>
@@ -57,59 +56,77 @@
     </header>
     <main>
       <form>
-        <input class="input" label="book" type="text" name="book" placeholder="Search for a book"/>
-        <input class="input" label="prop" type="text" name="prop" placeholder="Search for a proposition"/>
+        <input
+          class="input"
+          label="book"
+          type="text"
+          name="book"
+          placeholder="Search for a book"
+        />
+        <input
+          class="input"
+          label="prop"
+          type="text"
+          name="prop"
+          placeholder="Search for a proposition"
+        />
         <button type="submit">Submit</button>
       </form>
-      <div>
-
-      </div>
+      <div></div>
     </main>
 
     <script>
-
+      const btn = document.querySelector('button[type="submit"]');
+      //render html from data
       function renderHTML(data) {
-        const firstSentenceLength = data.text.split('.')[0].length + 1
+        const firstSentenceLength = data.text.split(".")[0].length + 1;
 
         return `
           <div style="max-width: 500px; margin: auto">
             <h1 style="margin: 10px">Book: ${data.book}</h1>
             <h1 style="margin: 10px">Proposition: ${data.proposition}</h1>
-            <p style="margin: 10px">TEXT: ${data.text.substring(firstSentenceLength)}</p>
-            <p style="margin: 10px">PROPOSITIONS USED: ${data.propsCited.join(" ")}</p>
-            <p style="margin: 10px">PROPOSITIONS USED BY: ${data.propsCitedBy.join(" ")}</p>
+            <p style="margin: 10px">TEXT: ${data.text.substring(
+              firstSentenceLength
+            )}</p>
+            <p style="margin: 10px">PROPOSITIONS USED: ${data.propsCited.join(
+              " "
+            )}</p>
+            <p style="margin: 10px">PROPOSITIONS USED BY: ${data.propsCitedBy.join(
+              " "
+            )}</p>
           </div>
         `;
       }
 
+      //fetch data using book and prop to get the proper propositions from the euclid data on the server
       const getData = async (book, prop) => {
         try {
-          const response = await fetch(`http://localhost:4000/book/${book}/prop/${prop}`);
+          const response = await fetch(
+            `http://localhost:4000/book/${book}/prop/${prop}`
+          );
           const data = await response.json();
-          console.log(data)
 
           const div = document.querySelector("div");
-
           div.innerHTML = renderHTML(data);
-          document.querySelectorAll('.input').forEach(node => {
-            node.value = ''
-          })
+          document.querySelectorAll(".input").forEach((node) => {
+            node.value = "";
+          });
         } catch (e) {
           console.log(e, "data could not be fetched");
         }
       };
 
-      const btn = document.querySelector('button[type="submit"]');
-      btn.addEventListener('click', (e) => {
-        e.preventDefault()
-        
-        const propObj = []
-        document.querySelectorAll('.input').forEach(node => {
-          propObj.push(node.value)
-        })
+      //event listener for submitting form
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
 
-        getData(...propObj)
-      })
+        const propObj = [];
+        document.querySelectorAll(".input").forEach((node) => {
+          propObj.push(node.value);
+        });
+
+        getData(...propObj);
+      });
     </script>
   </body>
 </html>
