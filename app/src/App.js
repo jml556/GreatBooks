@@ -12,13 +12,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { AppBar, Toolbar} from "@material-ui/core";
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="#">
+        under dev
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -41,11 +42,16 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
+      <header style={{backgroundColor: '1px solid black', marginBottom: '30px', textAlign: 'center'}}>
+        <AppBar>
+          <Toolbar>Euclid Search</Toolbar>
+        </AppBar>
+      </header>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 12,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
