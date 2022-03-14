@@ -8,8 +8,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BookIcon from "@mui/icons-material/Book";
-import { AppBar, Toolbar } from "@material-ui/core";
-import About from "./about.js";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 const theme = createTheme({
@@ -29,7 +27,7 @@ const theme = createTheme({
   },
 });
 
-export default function SignIn() {
+export default function About() {
   const [book, setBook] = useState("");
   const [prop, setProp] = useState("");
 
@@ -47,6 +45,7 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
+            <CssBaseline />
       <header style={{ marginTop: "-140px" }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div
@@ -66,7 +65,7 @@ export default function SignIn() {
                   borderRadius: "20px",
                 }}
               >
-                Great Books Search
+              <Link style={{textDecoration: 'none', color: 'white'}} to="/">Great Books Search</Link>
               </Button>
               <Button
                 variant="contained"
@@ -76,73 +75,25 @@ export default function SignIn() {
                   bgcolor: "secondary.main",
                   borderRadius: "20px",
                 }}
-              > <Link to="/about" style={{textDecoration: 'none', color: 'white'}}>About Us</Link>
+              > About Us
               </Button>
           </div>
         </div>
       </header>
       <Container
         component="main"
-        maxWidth="xs"
+        maxWidth="lg"
         sx={{
-          marginTop: 10,
+          marginTop: 5,
           border: "1px solid rgba(0,0,0, .3)",
-          height: "500px",
+          maxHeight: "80vh",
+          minHeight: '500px',
           borderRadius: "10px",
           backgroundColor: "rgba(255,255,255, .95)",
           boxShadow: "-2px 2px 29px 3px rgba(0,0,0,0.35)",
         }}
       >
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 5,
-            paddingTop: 0,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography component="h1" variant="h3" sx={{ marginBottom: 2 }}>
-            Euclid Search
-          </Typography>
-
-          <Avatar sx={{ m: 1, bgcolor: "secondary.light" }}>
-            <BookIcon fontSize="medium" />
-          </Avatar>
-          <Typography component="h4" variant="h7">
-            Created with care by Johnnies
-          </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Book"
-              name="book"
-              autoFocus
-              onChange={handleBookChange}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="proposition"
-              label="Proposition"
-              id="password"
-              onChange={handlePropChange}
-            />
-            <Button
-              onClick={handleClick}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 0, bgcolor: "secondary.light" }}
-            >
-              Search Prop
-            </Button>
-          </Box>
-        </Box>
+        <h1></h1>
       </Container>
     </ThemeProvider>
   );
