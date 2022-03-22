@@ -21,6 +21,8 @@ function getProp(arr) {
 
 function fromRomanNumeral(String){
   const propName = String;
+  if(propName.indexOf('Def')||propName.indexOf('C.N')||propName.indexOf('Post'))
+    return false;
   bookNumStr = propName.substring(0,propName.indexOf("."));
   ret = 0
   while (bookNumStr.length > 0) {
