@@ -7,16 +7,15 @@ const app = express();
 
 function getProp(arr) {
   const propsCitedByArr = arr;
-  return propsCitedByArr.map(prop => {
-    if(prop == "I. 2") {
-      return euclid.book1.prop2
-    }
-    else {
-      return ''
-    }
-  })
+  return propsCitedByArr.map((prop) => {
+    if (romRomanNumeral(prop) === false) {
+      return "";
+    } else {
+      const [bookNum, propNum] = fromRomanNumeral(prop);
+      return euclid["book" + bookNum]["prop" + propNum];
+    }w
+  });
 }
-
 
 //listens for get requests on the root directory
 app.get("/", (req, res) => {
@@ -27,17 +26,17 @@ app.get("/", (req, res) => {
 app.get("/book/:book/prop/:prop", (req, res) => {
   const propLocation = req.params;
   const prop = euclid["book" + propLocation.book]["prop" + propLocation.prop];
-  console.log(prop)
+  console.log(prop);
 
   Object.assign(prop, {
     book: propLocation.book,
     proposition: propLocation.prop,
-    cited: {
-      props: getProp(prop.propsCitedBy)
-    },
     citedBy: {
-      props: ''
-    }
+      props: getProp(prop.propsCitedBy),
+    },
+    cited: {
+      props: getProp(props.propsCited),
+    },
   });
 
   res.json(prop);
