@@ -8,54 +8,47 @@ const app = express();
 function getProp(arr) {
   const propsCitedByArr = arr;
   return propsCitedByArr.map((prop) => {
-    console.log(fromRomandNumeral(prop), prop)
     /*
-    if(fromRomanNumeral(prop) === false) {
+    if (fromRomanNumeral(prop) === false) {
       return "";
     } else {
       const [bookNum, propNum] = fromRomanNumeral(prop);
       return euclid["book" + bookNum]["prop" + propNum];
     }
     */
-   return ''
   });
 }
 
-function fromRomandNumeral(string) {
-  function getRomanNumeral(firstTerm, secondTerm) {
-    const noPeriodTerm = firstTerm.split('')
-    const idx = noPeriodTerm.indexOf('.')
-    noPeriodTerm.splice(idx, 1)
-    console.log(noPeriodTerm.join(''))
-    switch(noPeriodTerm.join('')) {
-      case 'I': 
-        return [1, parseI]
-      case 'II':
-        return [2,]
+function fromRomanNumeral(String){
+  const propName = String;
+  bookNumStr = propName.substring(0,propName.indexOf("."));
+  ret = 0
+  while (bookNumStr.length > 0) {
+    if (bookNumStr.charAt(bookNumStr.length - 1) == 'I') {
+      ret++;
+      bookNumStr = bookNumStr.substring(0, bookNumStr.length - 1);
+    } else if (bookNumStr.charAt(bookNumStr.length - 1) == 'V') {
+      ret += 5;
+      bookNumStr = bookNumStr.substring(0, bookNumStr.length - 1);
+      if (bookNumStr.length > 0 && bookNumStr.charAt(bookNumStr.length - 1) == 'I') {
+        ret--;
+        bookNumStr = bookNumStr.substring(0, bookNumStr.length - 1);
+      }
+    } else if (bookNumStr.charAt(bookNumStr.length - 1) == 'X') {
+      ret += 10;
+      bookNumStr = bookNumStr.substring(0, bookNumStr.length - 1);
+      if (bookNumStr.length > 0 && bookNumStr.charAt(bookNumStr.length - 1) == 'I') {
+        ret--;
+        bookNumStr = bookNumStr.substring(0, bookNumStr.length - 1);
+      }
     }
-    return
   }
-
-  const [firstTerm, secondTerm] = string.split(' ')
-  switch(firstTerm.toLowerCase()) {
-    case "post.":
-      return false
-    case "def.":
-      return false
-    case "c.n.":
-      return false
-    default:
-      return getRomanNumeral(firstTerm, secondTerm)
-  }
+  propNum = propName.substring(propName.indexOf(" "));
+  console.log(ret,propNum)
+  return [ret, propNum];
 }
 
-/*
-    "Post. 3",
-     "Post. 1",
-     "Def. 15",
-     "C.N. 1"
-*/
-
+fromRomanNumeral("II. 3")
 //listens for get requests on the root directory
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "/index.html"));
@@ -65,6 +58,7 @@ app.get("/", (req, res) => {
 app.get("/book/:book/prop/:prop", (req, res) => {
   const propLocation = req.params;
   const prop = euclid["book" + propLocation.book]["prop" + propLocation.prop];
+  console.log(prop);
 
   Object.assign(prop, {
     book: propLocation.book,
