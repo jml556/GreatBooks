@@ -8,14 +8,53 @@ const app = express();
 function getProp(arr) {
   const propsCitedByArr = arr;
   return propsCitedByArr.map((prop) => {
-    if (romRomanNumeral(prop) === false) {
+    console.log(fromRomandNumeral(prop), prop)
+    /*
+    if(fromRomanNumeral(prop) === false) {
       return "";
     } else {
       const [bookNum, propNum] = fromRomanNumeral(prop);
       return euclid["book" + bookNum]["prop" + propNum];
-    }w
+    }
+    */
+   return ''
   });
 }
+
+function fromRomandNumeral(string) {
+  function getRomanNumeral(firstTerm, secondTerm) {
+    const noPeriodTerm = firstTerm.split('')
+    const idx = noPeriodTerm.indexOf('.')
+    noPeriodTerm.splice(idx, 1)
+    console.log(noPeriodTerm.join(''))
+    switch(noPeriodTerm.join('')) {
+      case 'I': 
+        return [1, parseI]
+      case 'II':
+        return [2,]
+    }
+    return
+  }
+
+  const [firstTerm, secondTerm] = string.split(' ')
+  switch(firstTerm.toLowerCase()) {
+    case "post.":
+      return false
+    case "def.":
+      return false
+    case "c.n.":
+      return false
+    default:
+      return getRomanNumeral(firstTerm, secondTerm)
+  }
+}
+
+/*
+    "Post. 3",
+     "Post. 1",
+     "Def. 15",
+     "C.N. 1"
+*/
 
 //listens for get requests on the root directory
 app.get("/", (req, res) => {
@@ -26,7 +65,6 @@ app.get("/", (req, res) => {
 app.get("/book/:book/prop/:prop", (req, res) => {
   const propLocation = req.params;
   const prop = euclid["book" + propLocation.book]["prop" + propLocation.prop];
-  console.log(prop);
 
   Object.assign(prop, {
     book: propLocation.book,
