@@ -107,6 +107,7 @@
           const data = await response.json();
 
           const div = document.querySelector("div");
+          console.log(data)
           div.innerHTML = renderHTML(data);
           document.querySelectorAll(".input").forEach((node) => {
             node.value = "";
