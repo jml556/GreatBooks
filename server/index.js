@@ -1,29 +1,40 @@
-const express = require("express");
-const euclid = require("./public/data");
-const path = require("path");
-const PORT = 4000;
+const express = require('express')
+const cors = require('cors')
+const path = require('path')
+const euclid = require('./euclid')
+const {getProp} = require('./utils/utilities')
 
-const app = express();
+const PORT = process.env.PORT || 3001
 
-//listens for get requests on the root directory
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "/index.html"));
-});
+const app = express()
+app.use(express.json())
+app.use(cors({}))
+app.use(express.static(path.join(__dirname, 'build')))
 
-//REST api handler for book and prop
-app.get("/book/:book/prop/:prop", (req, res) => {
+//        const data = await fetch(`http://localhost:3001/book/${book}/prop/${prop}`);
+
+app.get('/book/:book/prop/:prop', (req, res) => {
   const propLocation = req.params;
-  const prop = euclid["book" + propLocation.book]["prop" + propLocation.prop];
+  const prop = euclid['book' + req.params.book].propositions['prop' + req.params.prop]
 
   Object.assign(prop, {
     book: propLocation.book,
     proposition: propLocation.prop,
+    citedBy: {
+      props: getProp(prop.propsCitedBy),
+    },
+    cited: {
+      props: getProp(prop.propsCited),
+    },
   });
 
-  res.json(prop);
-});
+  res.send(prop);
+})
 
-//listen on localhost with PORT
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "/index.html"));
+})
+
 app.listen(PORT, () => {
-  console.log(`app is listening on ${PORT}`);
-});
+  console.log('running on ' + PORT)
+})
