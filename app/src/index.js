@@ -1,21 +1,27 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import About from './components/about.js'
 import { render } from "react-dom";
-import SignIn from "./components/form";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import App from "./App";
+import About from "./components/About";
+import HowItWorks from "./components/HowItWorks";
+import Search from "./components/Search";
+import "./index.css";
 
+const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App><SignIn/></App>}></Route>
-      <Route path="/about" element={<App><About /></App>}></Route>
+      <Route
+        path="/"
+        element={
+          <App/>
+        }
+      >
+        <Route path="AboutUs" element={<About />} />
+        <Route path="HowItWorks" element={<HowItWorks />} />
+        <Route path="Search" element={<Search />} />
+        <Route path="" element={<Search />} />
+      </Route>
     </Routes>
   </BrowserRouter>,
-  document.getElementById("root")
+  rootElement
 );
