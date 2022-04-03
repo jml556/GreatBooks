@@ -13,7 +13,7 @@ const App = (props) => {
     <div className="appStyles">
       <div style={{ flexGrow: 1 }}>
         <h1>Euclid Search</h1>
-        <nav>
+        <nav style={{marginBottom: 50}}>
           <Link to="/AboutUs">About</Link> |{" "}
           <Link to="/HowItWorks">How It Works</Link> |{" "}
           <Link to="/Search">Search</Link>

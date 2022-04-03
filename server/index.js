@@ -16,15 +16,16 @@ app.use(express.static(path.join(__dirname, 'build')))
 app.get('/book/:book/prop/:prop', (req, res) => {
   const propLocation = req.params;
   const prop = euclid['book' + req.params.book].propositions['prop' + req.params.prop]
-
+  const props = prop.propsCitedBy
+  const citedProps = props.propsCited
   Object.assign(prop, {
     book: propLocation.book,
     proposition: propLocation.prop,
     citedBy: {
-      props: getProp(prop.propsCitedBy),
+      props: props,
     },
     cited: {
-      props: getProp(prop.propsCited),
+      props: citedProps,
     },
   });
 
