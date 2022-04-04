@@ -10,12 +10,7 @@ const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>
     <Routes>
-      <Route
-        path="/"
-        element={
-          <App/>
-        }
-      >
+      <Route path="/" element={<App />}>
         <Route path="AboutUs" element={<About />} />
         <Route path="HowItWorks" element={<HowItWorks />} />
         <Route path="Search" element={<Search />} />

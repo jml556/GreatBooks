@@ -1,6 +1,26 @@
 import React from "react";
 import { VictoryTheme, VictoryChart, VictoryLegend } from "victory";
 import { VictoryBar } from "victory";
+import { Canvas } from "reaflow";
+
+const nodes = [
+  {
+    id: "1",
+    text: "1",
+  },
+  {
+    id: "2",
+    text: "2",
+  },
+];
+
+const edges = [
+  {
+    id: "1-2",
+    from: "1",
+    to: "2",
+  },
+];
 
 function formatData(arr) {
   const formattedArr = arr.slice().map((item) => {
@@ -25,15 +45,14 @@ function formatData(arr) {
 }
 
 const Charts = (props) => {
-
   const dataCited = Object.entries(formatData(props.data.propsCited))
-  .map((item) => {
-    return {
-      x: item[0],
-      y: item[1],
-    };
-  })
-  .sort((a, b) => a.y - b.y);
+    .map((item) => {
+      return {
+        x: item[0],
+        y: item[1],
+      };
+    })
+    .sort((a, b) => a.y - b.y);
 
   const dataCitedBy = Object.entries(formatData(props.data.propsCitedBy))
     .map((item) => {
@@ -46,6 +65,10 @@ const Charts = (props) => {
 
   return (
     <div>
+    <div style={{height: '500px'}}>
+            <Canvas nodes={nodes} edges={edges}/>
+    </div>
+
       <VictoryChart domainPadding={30}>
         <VictoryLegend
           x={125}
