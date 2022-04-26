@@ -1,10 +1,11 @@
 const express = require('express')
 const path = require('path')
 const euclid = require('./euclid')
-
+const cors = require('cors')
 const PORT = process.env.PORT || 3001
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'build')))
 
