@@ -28,6 +28,30 @@ app.get('/book/:book/prop/:prop', (req, res) => {
   res.send(prop);
 })
 
+app.get('/text/:text', (req, res) => {
+  const obj = []
+  const text = req.params.text
+  console.log(text)
+  /*
+  const propLocation = req.params;
+  const prop = euclid['book' + req.params.book].propositions['prop' + req.params.prop]
+  const props = prop.propsCitedBy
+  const citedProps = props.propsCited
+  Object.assign(prop, {
+    book: propLocation.book,
+    proposition: propLocation.prop,
+    citedBy: {
+      props: props,
+    },
+    cited: {
+      props: citedProps,
+    },
+  });
+  */
+
+  res.send();
+})
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, "build", "/index.html"));
 })

@@ -13,7 +13,8 @@ const App = (props) => {
         <nav style={{ marginBottom: 20, borderBottom: '1px solid #888', paddingBottom: 10 }}>
           <Link to="/AboutUs">About</Link> |{" "}
           <Link to="/HowItWorks">How It Works</Link> |{" "}
-          <Link to="/Search">Search</Link>
+          <Link to="/textsearch">Text Search</Link> |{" "}
+          <Link to="/Search">Search Prop</Link>
         </nav>
         <Outlet />
       </div>
@@ -23,3 +24,5 @@ const App = (props) => {
 };
 
 export default App;
+
+//        <Route path="textsearch" element={<TextSearch />} />
